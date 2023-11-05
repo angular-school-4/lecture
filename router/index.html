@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Router</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="Router"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Router</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Routing</h2>
+            <ul>
+                <li>allows to navigate through the web application without reloading,</li>
+                <li>allows to pass data between route,</li>
+                <li>uses history api (bookmarking, back/forward button),</li>
+                <li>provides an event-based API,</li>
+                <li>allows to define multiple outlets.</li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Routing</h2>
+            <h4 class="white">Declarative API</h4>
+            <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="|10-14|1-8">
+              const routes: Routes = [
+                {path: 'hero/:id', component: HeroDetailComponent },
+                {path: 'heroes', component: HeroListComponent,
+                  data: { title: 'Heroes List'}
+                },
+                {path: '', redirectTo: '/heroes', pathMatch: 'full' },
+                {path: '**', component: PageNotFoundComponent }
+              ];
+
+              @Module({
+                imports: [RouterModule.forRoot(routes)],
+                exports: [RouterModule]
+              })
+              export class AppRoutingModule {}
+            </code>
+          </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Routing</h2>
+            <ul>
+                <li> router outlet - where to put the component,
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+                  &#x3C;router-outlet&#x3E;&#x3C;/router-outlet&#x3E;
+                </code>
+              </pre>
+                </li>
+                <li> internal links,
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+                  &#x3C;a routerLink="/hero/11" routerLinkActive="activeRoute"&#x3E;
+                    Hero
+                  &#x3C;/a&#x3E;
+                </code>
+              </pre>
+                </li>
+                <li> code-based redirection.
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  constructor(router: Router){
+                    router.navigate(['hero', 11]);
+                  }
+                </code>
+              </pre>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Routing</h2>
+            <h4 class="white">Methods of passing parameters</h4>
+            <ul>
+                <li> params - defined in routers table
+                    <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  /book/:id
+                  </code>
+                </pre>
+                </li>
+                <li> queryParams - defined in URL
+                    <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  /book?id=12
+                  </code>
+                </pre>
+                </li>
+                <li>data - additional data defined in routers table</li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Routing</h2>
+            <h4 class="white">Methods for accessing parameters</h4>
+            <ul>
+                <li> static access:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  constructor(
+                    activatedRoute: ActivatedRoute){
+                    console.log(activatedRoute.snapshot.params.id);
+                  }
+                </code>
+              </pre>
+                </li>
+                <li> reactive access via Observable:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  constructor(activatedRoute:ActivatedRoute){
+                    activatedRoute.paramsMap.subscribe(paramsMap=>{
+                      console.log(paramsMap.get('id'));
+                    })
+                  }
+                </code>
+              </pre>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

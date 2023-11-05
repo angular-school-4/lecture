@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ES6 & TS</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="ES6 & TS"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">ES6 & TS</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Agenda</h2>
+            <ul class="no-bullet">
+                <li>[ES6] Arrow Functions</li>
+                <li>[ES6] for-of & for-in</li>
+                <li>[ES6] Template Literals</li>
+                <li>[ES6] Let and Const</li>
+                <li>[ES6] Spread and Rest Operators</li>
+                <li>[ES6] Destructuring</li>
+                <li>[ES6] Modules</li>
+                <li>[TS] Classes and Interfaces</li>
+                <li>[TS] Narrowing</li>
+                <li>[TS] Optional chaining</li>
+                <li>[TS] Nullish coalescing</li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Template Literals</h2>
+
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const person = 'Adam';
+
+                const text = `Hallo ${person}`
+
+                const textMultiLine = `Hallo ${person},
+                                    How are you?`
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Let and Const</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const num;
+                // SyntaxError: Missing initializer in const declaration
+
+                const num = 1;
+
+                num = 2;
+                // Uncaught TypeError: Assignment to constant variable.
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                for(let i=0; i&#60;10; i++){
+                    let a: string  = 'block scope';
+                }
+
+                console.log(a);
+                // Uncaught ReferenceError: a is not defined
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Arrow Functions</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const sum = (a, b) => a+b;
+
+                const avg = (a, b) => {
+                    const suma = sum(a,b);
+                    return suma/2;
+                };
+
+                const avgCurry = (a) => (b) => sum(a,b)/2;
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Spread and Rest Operators</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const arr = [1, 2, 3];
+                const arr2 = [...arr, 4, 5, 6];
+
+                console.log(arr2); // [1,2,3,4,5,6]
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  const address = { city: 'Warsaw'};
+                  const person = { name: 'Adam', ...address};
+
+                  console.log(person); // {name:'Adam',city:'Warsaw'};
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Destructuring</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const person = {name: 'Adam', age: 22};
+                const {name, age} = person;
+                const {name: imie, age: wiek} = person;
+
+                console.log(name, age); // 'Adam 22'
+                console.log(imie, wiek); // 'Adam 22'
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                function fun({name, age}) {
+                    console.log(name, age); // 'Adam 22'
+                }
+                fun();
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const names = ['Ala', 'Tomek', 'Krzyś'];
+                const [firstElem, ...tail] = names;
+
+                console.log(firstElem); // 'Ala'
+                console.log(tail); // ['Tomek','Krzyś']
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">for-of & for-in</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                var obj = {a:1, b:2};
+                for (let prop in obj) {
+                    console.log(prop);
+                }
+                // a
+                // b
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                let array = [10, 20];
+                for (let index in array) {
+                  console.log(index);
+                });
+                // 0 (**that will be string not number)
+                // 1
+                </code>
+            </pre>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                let array = [10, 20];
+                for (var value of array) {
+                  console.log(value);
+                }
+                // 10
+                // 20
+                </code>
+            </pre>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Modules - exports</h2>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    // utils.ts
+                    function square(x) {
+                        return Math.pow(x,2)
+                    }
+
+                    function cow() {
+                        console.log("Mooooo!!!")
+                    }
+
+                    export {square, cow};
+                    </code>
+                </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Modules - imports</h2>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                      // script.ts
+                      import {square, cow} from './utils';
+
+                      console.log(square(2));
+                      cow();
+                    </code>
+                </pre>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    import {square as sqr} from './utils';
+                    sqr(2);
+                    </code>
+                </pre>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    import * as utils from './utils';
+                    console.log(utils.square(2));
+                    utils.cow();
+                    </code>
+                </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Modules - default export</h2>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    export default function square(x) {
+                        return Math.pow(x,2)
+                    }
+                    </code>
+                </pre>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                      import square from './utils';
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">TypeScript</h2>
+            <ul>
+                <li>open-source, developed by Microsoft,</li>
+                <li>upperset of JavaScript (JS script == working TS script),</li>
+                <li>transcompiles to JavaScript,</li>
+                <li>additional features:
+                    <ul>
+                        <li>static typing,</li>
+                        <li>classes,</li>
+                        <li>interfaces,</li>
+                        <li>modules,</li>
+                        <li>enums,</li>
+                        <li>optional parameters.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Classes and Interfaces</h2>
+            <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                interface Human {
+                  firstName: string;
+                  secondName?: string
+                  lastName: string;
+                }
+                class Person implements Human {
+                  constructor(private firstName, private lastName) {}
+                  sayHello() {
+                    console.log(`${this.firstName} ${this.lastName}`);
+                  }
+                }
+
+                const p = new Person('Adam', 'Kowalski');
+              </code>
+            </pre>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Basic types</h2>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="|1-5|7-13">
+                      let message: string
+                      let timestamp: number
+                      let nonPrimitive: object
+                      let uninitialized: undefined
+                      let emptyValue: null
+
+                      let assertMeFirst: unknown
+                      let imAnArrayOfT: T[]
+                      let imAnArrayTo: Array&#x3C;T&#x3E;
+                      let toupleThats2ElemArray: [T, U]
+                      let enumeration: FancyEnum
+                      function ():void {console.log('there is no return')}
+                      function ():never {throw new Exception('ops!')}
+                    </code>
+                </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Advanced types</h2>
+                <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    const objectType: {firstName: string, lastName: string}
+
+                    type TypeAlians = {firstName: string, lastName: string}
+
+                    let unionType: number | string
+
+                    let literalType: "left" | "right" | "center"
+                  </code>
+                </pre>
+                <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    interface Todo {
+                      title: string;
+                      description: string;
+                      completed: boolean;
+                    }
+
+                    type TodoPreview = Pick&#x3C;Todo, "title" | "completed"&#x3E;;
+
+                    let todo: TodoPreview = {title: "Clean room", completed: false};
+                  </code>
+                </pre>
+                <a href="https://www.typescriptlang.org/docs/handbook/utility-types.html">-- More --</a>
+            </section>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">narrowing</h2>
+            <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    function padLeft(padding: number | string, input: string) {
+                      if (typeof padding === "number") {
+                        return " ".repeat(padding) + input; // padding is a number
+                      }
+                      return padding + input; // padding can only be a string
+                    }
+                  </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Optional chaining</h2>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                let adam: Person | undefined
+
+                console.log(adam.engine) //[ERR] Object is possibly 'undefined'
+
+                console.log(adam?.engine.type) // undefined
+                </code>
+            </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Nullish coalescing</h2>
+            <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    type Book = {title?: string, subtitle?: string, author?: string}
+
+                    let customConfig: Book = {title: "TypeScript", subtitle: null}
+
+                    console.log(customConfig.author ?? 'Default title')
+                    // 'TypeScript'
+
+                    console.log(customConfig.author ?? 'Unknown author')
+                    // 'Unknown author'
+
+                    console.log(customConfig.subtitle ?? 'Default subtitle')
+                    // null
+                  </code>
+            </pre>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HttpClient</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="HttpClient"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">HttpClient</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">HttpClient</h2>
+            <ul>
+                <li>built-in, observable-based HttpClient (HttpClientModule),</li>
+                <li>provides HttpClientTestingModule,</li>
+                <li>allows to prepare typed http requests,</li>
+                <li>allows to intercept and modify request.</li>
+            </ul>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">HttpClient</h3>
+                <h4 class="white">How to start</h4>
+                <ol>
+                    <li>import HttpClientModule:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="1,3">
+                              import { HttpClientModule } from '@angular/common/http';
+                              @NgModule({
+                                imports: [..., HttpClientModule],
+                                declarations: [...],
+                                exports: [...],
+                                providers: [...],
+                              })
+                              export class AppModule {
+                            </code>
+                        </pre>
+                    </li>
+                </ol>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">HttpClient</h3>
+                <h4 class="white">How to start</h4>
+                <ol start="2">
+                    <li>inject HttpClient:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                                constructor(private http: HttpClient){}
+                            </code>
+                        </pre>
+                    </li>
+                    <li>make the call:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable
+                                  data-line-numbers="2,8-10|3-7">
+                            ngOnInit(){
+                              this.http.get('http://myurl/book')
+                              .subscribe({
+                                  next:  (response) => this.handleResponse(response),
+                                  error: (error) => this.handleError(error)
+                                  }
+                              );
+                              this.http.post('http://myurl/book', myData).subscribe();
+                              this.http.put('http://myurl/book', myData).subscribe();
+                              this.http.delete('http://myurl/book').subscribe();
+                            }
+                          </code>
+                        </pre>
+                    </li>
+                </ol>
+            </section>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Mocking REST server</h3>
+            <h4 class="white">How to start</h4>
+            <ol>
+                <li>install json-server
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                          npm install json-server --save-dev
+                        </code>
+                    </pre>
+                </li>
+                <li>prepare package.json
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                          "scripts": {
+                            "start": "ng serve --proxy-config proxy.conf.json",
+                            "start:db": "json-server server/db.json --watch"
+                          },
+                        </code>
+                    </pre>
+                </li>
+                <li>start the mock
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                          npm run-script start:db
+                        </code>
+                    </pre>
+                </li>
+            </ol>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Local development</h3>
+            <h4 class="white">Build-in proxy</h4>
+            <ul>
+                <li>allows to bypass CORS security for development purposes,</li>
+                <li>gives possibilities to implement client-site independently,</li>
+                <li> simple configuration using json file:
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                          {
+                            "/api": {
+                              "target": "http://localhost:3000/",
+                              "pathRewrite": {"/api": ""},
+                              "secure": false,
+                              "changeOrigin": true,
+                              "logLevel": "debug"
+                            }
+                          }
+                        </code>
+                    </pre>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

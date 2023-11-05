@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular School</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=""/>
+    <meta name="description" content="Angular School"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="common/img/favicon.ico"/>
+    <link rel="stylesheet" href="reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="reveal.js-5.1.0/dist/theme/black.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section data-background-image="common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg">
+            <div style="display: flex; flex-direction: column">
+                <div style="display: flex; flex-direction: column">
+                    <img
+                            height="120em"
+                            class="no-background no-border no-margin no-shadow"
+                            src="common/img/angular-logo.svg"
+                    />
+                    <h2 class="white">Angular School 4</h2>
+                    <p class="credits">by twawrzyn</p>
+                </div>
+            </div>
+        </section>
+        <section
+                class="agenda"
+                data-background-image="common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+                style="text-align: left"
+        >
+            <div class="fragment" style="display: flex">
+                <span style="width: 12rem">Lecture I</span>
+                <ul>
+                    <li><a href="es6_ts/index.html"> Basics of ES6 & Typescript </a></li>
+                    <li><a href="basics/index.html">Starting with Angular</a></li>
+                    <li><a href="architecture/index.html">Architecture: Components</a></li>
+                </ul>
+            </div>
+            <div class="fragment" style="display: flex">
+                <span style="width: 12rem">Lecture II</span>
+                <ul>
+                    <li><a href="architecture/index.html">Architecture: Services + others</a></li>
+                    <li><a href="http-client/index.html">HttpClient</a></li>
+                    <li><a href="rxjs/index.html">RXJS</a></li>
+                </ul>
+            </div>
+            <div class="fragment" style="display: flex">
+                <span style="width: 12rem">Lecture III</span>
+                <ul>
+                    <li><a href="router/index.html">Router</a></li>
+                    <li><a href="reactive-forms/index.html">Reactive Forms</a></li>
+                </ul>
+            </div>
+            <div class="fragment" style="display: flex">
+                <span style="width: 12rem">Lecture IV</span>
+                <ul>
+                    <li><a href="advanced-router/index.html">Advanced Router</a></li>
+                    <li><a href="testing/index.html">Unit Testing</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

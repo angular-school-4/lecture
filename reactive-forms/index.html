@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reactive Forms</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="Reactive Forms"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+    <style>
+        .reveal .slides section .fragment.highlight-red.visible {
+            color: #f58f8f;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Reactive Forms</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Model-Driven Form</h3>
+            <h4 class="white">a.k.a Reactive Form</h4>
+            <ul>
+                <li>structure and validation defined in the TS file,</li>
+                <li>can be used reactively,</li>
+                <li>consists of two types of elements:
+                    <ul>
+                        <li>FormControl - a simplest form unit,</li>
+                        <li>FormGroup - manages a set of <b>FormControls</b>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Model-Driven Form</h3>
+            <h4 class="white">How to start</h4>
+            <ol>
+                <li>import <b>ReactiveFormsModule</b></li>
+                <li> declare a model using FormGroup and FormControl,</li>
+                <li> bind the HTML using built-in directives:
+                    <ul>
+                        <li><span class="fragment highlight-red">formControl</span> / <span
+                                class="fragment highlight-red">formControlName</span></li>
+                        <li><span class="fragment highlight-red">formGroup</span> / <span
+                                class="fragment highlight-red">formGroupName</span></li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Model-Driven Form</h3>
+            <h4 class="white">How to start</h4>
+            <ol>
+                <li> model declaration
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  @Component({ ... })
+                  export class AuthorComponent {
+                    authorFormGroup = new FormGroup({
+                      firstName: new FormControl&#x3C;string&#x3E;('default val');
+                      lastName: new FormControl&#x3C;string&#x3E;('default val');
+                    })
+                  }
+                </code>
+              </pre>
+                </li>
+                <li> HTML binding
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+                &#x3C;form [formGroup]="authorFormGroup"&#x3E;
+                  First name: &#x3C;input type=&#x22;text&#x22; formControlName=&#x22;firstName&#x22;&#x3E;
+                  Last name: &#x3C;input type=&#x22;text&#x22; formControlName=&#x22;lastName&#x22;&#x3E;
+                &#x3C;/form&#x3E;
+                </code>
+              </pre>
+                </li>
+            </ol>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Control's state</h3>
+            <ul>
+                <li>accessible with control reference,</li>
+                <li>reflected in class attribute:</li>
+            </ul>
+            <table>
+                <tr>
+                    <th>State</th>
+                    <th colspan="2">Class name</th>
+                </tr>
+                <tr>
+                    <td>The control has been visited</td>
+                    <td>ng-touched</td>
+                    <td>ng-untouched</td>
+                </tr>
+                <tr>
+                    <td>The control's value has changed</td>
+                    <td>ng-dirty</td>
+                    <td>ng-pristine</td>
+                </tr>
+                <tr>
+                    <td>The control's value is valid</td>
+                    <td>ng-valid</td>
+                    <td>ng-invalid</td>
+                </tr>
+            </table>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Model-Driven Form</h3>
+            <h4 class="white">How to access the values</h4>
+            <ul>
+                <li> statically with value property:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  console.log(this.authorFormGroup.value);
+                  console.log(this.authorFormGroup.get('firstName')?.value);
+                  console.log(this.authorFormGroup.controls.firstName?.value);
+                </code>
+              </pre>
+                </li>
+                <li> reactively using valueChanges:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                this.authorFormGroup.valueChanges.subscribe(value => {
+                    console.log(value);
+                  });
+                </code>
+              </pre>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Model-Driven Form</h3>
+            <h4 class="white">How to set the value</h4>
+            <ul>
+                <li> set the whole new value using setValue - all fields must be defined:
+                    <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              authorFormGroup.setValue({firstName: "Adam", lastName: "Kowal"})
+              </code>
+            </pre>
+                </li>
+                <li> alter the value using patchValue:
+                    <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                authorFormGroup.patchValue({lastName: "Kowalski"})
+              </code>
+            </pre>
+                </li>
+                <li> reset the value and the state (untouched & pristine):
+                    <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                authorFormGroup.reset()
+              </code>
+            </pre>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Safe navigation operator</h3>
+            <h4 class="white">(a.k.a Elvis operator)</h4>
+            <ul>
+                <li>special char: <b>?</b>,</li>
+                <li> if form.controls.email was null or undefined it wouldn't try to call form.controls.email.valid:
+                    <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              {{form.get('email')?.valid}}
+            </code>
+          </pre>
+                </li>
+            </ul>
+            <code>
+                "Only try to call the property on the right of ? if the property on
+                the left of ? is not null"
+            </code>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Async pipe</h3>
+            <ul>
+                <li>allows you to remove <b>subscribe()</b> from code,</li>
+                <li>works with promises and observables,</li>
+                <li> resolves observable in HTML:
+                    <ul>
+                        <li>auto subscribe/unsubscribe,</li>
+                        <li>no need for additional binding in the component.</li>
+                    </ul>
+                </li>
+            </ul>
+            <pre data-id="code-animation">
+        <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+          &#x3C;div *ngIf="orders$ | async as orders"&#x3E;
+            &#x3C;div *ngFor="let order of orders"&#x3E;
+              &#x3C;span&#x3E;
+                {{ order.id }} {{ order.details }}
+              &#x3C;/span&#x3E;
+            &#x3C;/div&#x3E;
+          &#x3C;/div&#x3E;
+        </code>
+      </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Saving / Resetting Data</h3>
+            <h4 class="white">Example</h4>
+            <ol>
+                <li>handler in component:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  onSubmit() {
+                    if (this.myForm.valid) {
+                      this.api.saveData(this.myForm.value); //Form submitted!
+                      this.myForm.reset();
+                    }
+                  }
+                </code>
+              </pre>
+                </li>
+                <li>binding in HTML:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+                  &#x3C;form [formGroup]=&#x22;profileForm&#x22; (ngSubmit)=&#x22;onSubmit()&#x22;&#x3E;
+                    &#x3C;button [disabled]="!profileForm.valid"&#x3E;Send&#x3C;/button&#x3E;
+                  &#x3C;/form&#x3E;
+                </code>
+              </pre>
+                </li>
+            </ol>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Form Builder</h3>
+            <h4 class="white">a more readable way of defining form</h4>
+            <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="|3|5-8">
+              @Component({ ... })
+              export class UserSettingsComponent {
+                constructor(fb: FormBuilder){}
+
+                personalData = this.fb.group({
+                  firstName: ['John'],
+                  lastName: ['Doe', Validators.required]
+                });
+              }
+            </code>
+          </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Validator</h3>
+            <h4 class="white">On-the-fly form validation</h4>
+            <ul>
+                <li>two types of validators: sync / async validators,</li>
+                <li> returns either <b>ValidationErrors</b> or <b>null</b>,</li>
+                <li> angular adds <b>novalidate</b> to all forms - it turns off browser validation.</li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Validator</h3>
+            <h4 class="white">Built-in validators</h4>
+            <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" style="width:1040px" data-trim contenteditable data-line-numbers>
+              class Validators {
+                static min(min: number): ValidatorFn
+                static max(max: number): ValidatorFn
+                static required(control: AbstractControl): ValidationErrors | null
+                static requiredTrue(control: AbstractControl): ValidationErrors | null
+                static email(control: AbstractControl): ValidationErrors | null
+                static minLength(minLength: number): ValidatorFn
+                static maxLength(maxLength: number): ValidatorFn
+                static pattern(pattern: string | RegExp): ValidatorFn
+                static nullValidator(control: AbstractControl): ValidationErrors | null
+                static compose(validators: ValidatorFn[]): ValidatorFn | null
+                static composeAsync(validators: AsyncValidatorFn[]): AsyncValidatorFn | null
+              }
+            </code>
+          </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Validator</h3>
+            <h4 class="white">How to add a validator</h4>
+            <ol>
+                <li>implement validator:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  function biggerThan2(control: AbstractControl):
+                  ValidationErrors | null {
+                    return control.value>2 ? {biggerThan2Error: 'Too big' } : null;
+                  }
+                </code>
+              </pre>
+                </li>
+                <li>add validator to control:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  ngOnInit() {
+                    this.loginForm = this.fb.group({
+                      'login': ['', [Validators.required],
+                      'age': ''
+                    });
+                    this.loginForm.get(age).setValidators([biggerThan2])
+                  }
+                </code>
+              </pre>
+                </li>
+            </ol>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">ngClass directive</h3>
+            <h4 class="white">dynamically applied CSS classes</h4>
+            <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  &#x3C;div class="form-group"
+                    [ngClass]="{
+                      wrong:
+                        myForm.get('login')?.invalid && myForm.get('login')?.dirty,
+                      }"
+                  &#x3E;
+                </code>
+              </pre>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

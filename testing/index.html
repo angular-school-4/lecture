@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Testing</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="Testing"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Testing</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Unit Tests in Angular</h3>
+            <ul>
+                <li>testing small isolated pieces of code,</li>
+                <li>uses jasmine testing framework,</li>
+                <li>BDD - Behavior-driven development.</li>
+            </ul>
+            <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              describe('Hello world', () => {
+                it('says hello', () => {
+                  expect(helloWorld()).toEqual('Hello world!');
+                });
+              });
+            </code>
+          </pre>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Test flow</h3>
+            <ul>
+                <li><b> beforeAll</b> - called once, before all the specs in describe test suite are run.</li>
+                <li><b> afterAll</b> - called once after all the specs in a test suite are finished.</li>
+                <li><b> beforeEach</b> - called before each test specification (it function) has been run.</li>
+                <li><b> afterEach</b> - called after each test specification has been run.</li>
+            </ul>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Disabled and focused tests</h3>
+            <ul>
+                <li> use <b>xdescribe</b> or <b>xit</b> to disabled a test:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  xdescribe('Hello world', () => {
+                    xit('says hello', () => {
+                      expect(sayHello())
+                      .toEqual('Hello world!');
+                    });
+                  });
+                </code>
+              </pre>
+                </li>
+                <li> use <b>fdescribe</b> or <b>fit</b> to focus on a test:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  fdescribe('Hello world', () => {
+                    fit('says hello', () => {
+                        expect(sayHello())
+                        .toEqual('Hello world!');
+                    });
+                  });
+                </code>
+              </pre>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Mocks</h3>
+            <ul>
+                <li> testing with the real instance:
+                    <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              const service = new AuthService();
+              </code>
+            </pre>
+                </li>
+                <li> mock service with fake class:
+                    <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                class MockAuthService{
+                  isAuthenticated() {
+                    return false;
+                  }
+                }
+              </code>
+            </pre>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Spies</h3>
+                <ul>
+                    <li> spy a method on a real instance:
+                        <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  spyOn(service, 'isAuthenticated').and.returnValue(false);
+                  </code>
+                </pre>
+                    </li>
+                    <li> create a spy object with <b>createSpyObj</b> :
+                        <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  jasmine.createSpyObj('mockAuthService',
+                        ['isAuthenticated'])
+                  </code>
+                </pre>
+                    </li>
+                    <li> create a spy function with <b>createSpy</b> :
+                        <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  jasmine.createSpy('isAuthenticated')
+                  </code>
+                </pre>
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">How to use spies ?</h3>
+                <ul>
+                    <li> verify that function was called:
+                        <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                expect(obj.method).toHaveBeenCalled()
+                </code>
+              </pre>
+                    </li>
+                    <li> verify that function was called with params:
+                        <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                expect(obj.method).toHaveBeenCalledWith('param1', 1)
+                </code>
+              </pre>
+                    </li>
+                    <li> verify how many times it was called:
+                        <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                obj.method.calls.count()
+                </code>
+              </pre>
+                    </li>
+                    <li> check the lastest arguments:
+                        <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                obj.method.calls.mostRecent().args
+                </code>
+              </pre>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Angular Test Bed</h3>
+            <h4 class="white">Angular's testing tool</h4>
+            <ul>
+                <li>allows to create isolated tests and test behaviors that depend on the Angular,</li>
+                <li><b>TestBed</b> creates testing module that can instantiate components and perform DI.</li>
+            </ul>
+            <pre data-id="code-animation">
+            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+            describe('Component: Login', () => {
+                beforeEach(() => {
+                  TestBed.configureTestingModule({
+                    declarations: [LoginComponent],
+                    imports: [FormsModule],
+                    providers: [AuthService]
+                  });
+                });
+              });
+            </code>
+          </pre>
+        </section>
+
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Mocking with Testbed</h3>
+            <ul>
+                <li> existing class:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                TestBed.configureTestingModule({
+                    providers: [ {
+                      provide: RestApiService,
+                      useClass: MockRestApiTestService
+                    } ]
+                  });
+                </code>
+              </pre>
+                </li>
+                <li> existing instance:
+                    <pre data-id="code-animation">
+                <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                const mock = jasmine.createSpyObj(SearchService, ['search']);
+
+                TestBed.configureTestingModule({
+                  providers: [ {
+                    provide: SearchService,
+                    useValue: mock
+                  }]
+                });
+                </code>
+              </pre>
+                </li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Angular TestBed</h3>
+            <h4 class="white">When should it be used</h4>
+            <ul>
+                <li> testing interactions <b>directive</b> &#x3C;&#x3E; <b>components</b> ,</li>
+                <li>testing change detection,</li>
+                <li>test and use DI,</li>
+                <li> testing interaction with callbacks especially clicks and input fields,</li>
+            </ul>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Asynchronous Test</h3>
+                <ul>
+                    <li> using test-framework:
+                        <ul>
+                            <li><b>done</b> function - run this function when the test is complete</li>
+                        </ul>
+                    </li>
+                    <li>
+                        using Angular:
+                        <ul>
+                            <li><b>async</b> and <b>whenStable</b>
+                                <ul>
+                                    <li><b>whenStable()</b> triggered when all pending promises have been resolved
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li><b>fakeAsync</b> and <b>tick</b>
+                                <ul>
+                                    <li><b>tick()</b> calls all pending tasks</li>
+                                    <li><b>tick(10_000)</b> advances the clock by 10 seconds and calls the pending jobs
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Asynchronous Test</h3>
+                <h4 class="white"><b>done</b> function </h4>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable
+                    data-line-numbers="|2|2-3|2-5|2-7|2-9,13|10-12|">
+              it('should change login button text', (done: DoneFn) => {
+                fixture.detectChanges();
+                expect(el.nativeElement.textContent).toBe('Login');
+                let isAuthSpy = spyOn(authService,'isAuthenticated')
+                  .and.returnValue(of(true));
+
+                component.ngOnInit();
+
+                isAuthSpy.calls.mostRecent().returnValue.then(() => {
+                  fixture.detectChanges();
+                  expect(el.nativeElement.textContent).toBe('Logout');
+                  done();
+                });
+              });
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Asynchronous Test</h3>
+                <h4 class="white"><b>async</b> and <b>whenStable</b></h4>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable
+                    data-line-numbers="|2|2-3|2-5|2-7,10|2-7,10,11|8-9|">
+              it('should change login button text ', async(() => {
+                  fixture.detectChanges();
+                  expect(el.nativeElement.textContent).toBe('Login');
+                  spyOn(authService, 'isAuthenticated')
+                    .and.returnValue(of(true));
+
+                  fixture.whenStable().then(() => {
+                    fixture.detectChanges();
+                    expect(el.nativeElement.textContent).toBe('Logout');
+                  });
+                  component.ngOnInit();
+              }));
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Asynchronous Test</h3>
+                <h4 class="white"><b>fakeAsync</b> and <b>tick</b></h4>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim
+                    data-line-numbers="|2|2-3|2-5|2-7|2-7,9|2-7,9-10|2-7,9-11|">
+              it('should change login button text', fakeAsync(() => {
+                  fixture.detectChanges();
+                  expect(el.nativeElement.textContent).toBe('Login');
+                  spyOn(authService, 'isAuthenticated')
+                    .and.returnValue(of(true));
+
+                  component.ngOnInit();
+
+                  tick();
+                  fixture.detectChanges();
+                  expect(el.nativeElement.textContent).toBe('Logout');
+              }));
+              </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">How to test?</h2>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing classes & pipes</h3>
+                <ul>
+                    <li>everything in Angular is an instance of a class,</li>
+                    <li>test everything in js-way:</li>
+                </ul>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                describe('Service: Auth', () => {
+                  let service: AuthService;
+                  beforeEach(() => {
+                    service = new AuthService();
+                  });
+                  afterEach(() => {
+                    service = null;
+                    localStorage.removeItem('token');
+                  });
+                  it('should return false if there is no token', () => {
+                    expect(service.isAuthenticated()).toBeFalsy();
+                  });
+                });
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Dependency injection</h3>
+                <ul>
+                    <li>inject function wraps the test specs function,</li>
+                    <li>by default it use TestBed injector,</li>
+                    <li> to switch to Component Injector we need to use debugElement.</li>
+                </ul>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              it('should inject AuthService',
+                inject([AuthService], (auth: AuthService) => {
+                  expect(auth).toBe(mockedAuthService);
+                })
+              );
+              </code>
+            </pre>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              it('should inject AuthService',
+                () => {
+                  authService = TestBed.get(AuthService);
+                }
+              );
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing components</h3>
+                <ul>
+                    <li> test <b>@Input</b> properties using simple assignment and then trigger Change detection:
+                        <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  it('should disables the submit button', () => {
+                      component.enabled = false;
+                      fixture.detectChanges();
+
+                      expect(submitEl.nativeElement.disabled).toBeTruthy();
+                    });
+                  </code>
+                </pre>
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing components</h3>
+                <ul>
+                    <li>test <b>@Output</b> callbacks using subscribe function (it should be an <b>EventEmitter</b> ):
+                        <pre data-id="code-animation">
+                  <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                  it('should emit user data after login',
+                    fakeAsync(() => {
+                      let user: User;
+                      component.loggedIn.subscribe(data => user = data);
+
+                      el.nativeElement.click();
+
+                      tick();
+
+                      expect(user.email).toBe('app@capgemini.com');
+                      expect(user.password).toBe('qwerty');
+                    })
+                  );
+                  </code>
+                </pre>
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing components</h3>
+                <pre data-id="code-animation" style="height: 500px;">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              describe('Component: Login', () => {
+                  let authService: AuthService;
+                  let component: LoginComponent;
+                  let fixture: ComponentFixture&#x3C;LoginComponent&#x3E;;
+                  let el: DebugElement;
+
+                  beforeEach(() => {
+                    TestBed.configureTestingModule({
+                      import: [FormsModule],
+                      declarations: [LoginComponent],
+                      providers: [AuthService]
+                    });
+                    fixture = TestBed.createComponent(LoginComponent);
+                    component = fixture.componentInstance;
+                    authService = TestBed.get(AuthService);
+                    el = fixture.debugElement.query(By.css('button'));
+                  });
+                });
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing components</h3>
+                <h4 class="white">Hint: Detect changes</h4>
+                <ul>
+                    <li>when Angular loads components in TestBed <b>no change detection</b> has been triggered</li>
+                    <li><b>fixture</b> is a wrapper for our components environment, so we can control things like change
+                        detection
+                    </li>
+                    <li>trigger change detection by using <b>fixture.detectChanges()</b></li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing components</h3>
+                <h4 class="white">Hint: lifeCycle hooks</h4>
+                <ul>
+                    <li>Angular won't trigger <b>ngOnInit</b> , <b>ngOnDestroy</b> in this mode, we need to do it by
+                        hand
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing HttpClient</h3>
+                <ul>
+                    <li>multiple helpers in
+                        <b>HttpClientTestingModule</b>
+                        <ul>
+                            <li><b>expectOne()</b> allows to check one request</li>
+                            <li><b>match()</b> allows to check an array of requests</li>
+                        </ul>
+                    </li>
+                    <li>mocked request can return data with <b>flush()</b> function or raise an exception with <b>error()</b>
+                        function
+                    </li>
+                    <li>At the end use <b>verify()</b> to check all other pending requests</li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing HttpClient</h3>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              it('should test HttpClient.get', async(() => {
+                const responseData: Data = {name: 'Alicja'};
+                httpClient.get&#x3C;Data&#x3E;(testUrl)
+                  .subscribe(data => expect(data).toEqual(responseData));
+
+                const reqs = httpTestingController.match('/data');
+                expect(reqs[0].request.method).toEqual('GET');
+                reqs[0].flush(responseData);
+
+                httpTestingController.verify();
+              }));
+              </code>
+            </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing routing</h3>
+                <ul>
+                    <li>use <b>RouterTestingModule.withRoutes()</b> ,</li>
+                    <li>need to create AppComponent (with router-outlet) and then call <b>router.initialNavigation()</b>
+                        ,
+                    </li>
+                    <li>navigate with <b>navigate()</b> function but verify path with <b>location.path()</b></li>
+                </ul>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+              it('should redirects to /dashboard for empty route', fakeAsync(() => {
+                  router.navigate(['']);
+                  tick();
+                  expect(location.path()).toBe('/dashboard');
+                }));
+              </code>
+            </pre>
+            </section>
+
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Testing classes & pipes</h3>
+                <ul>
+                    <li>everything in Angular is an instance of a class,</li>
+                    <li>we can test everything in js-way:</li>
+                </ul>
+                <pre data-id="code-animation">
+              <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                describe('Service: Auth', () => {
+                  let service: AuthService;
+                  beforeEach(() => {
+                      service = new AuthService();
+                  });
+                  afterEach(() => {
+                      service = null;
+                      localStorage.removeItem('token');
+                  });
+                    it('should return false if there is no token', () => {
+                      expect(service.isAuthenticated()).toBeFalsy();
+                  });
+                });
+              </code>
+            </pre>
+            </section>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

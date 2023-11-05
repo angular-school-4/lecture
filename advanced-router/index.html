@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced router</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="Advanced router"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Advanced router</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Router's Guard</h2>
+            <ul>
+                <li> protects route to access or allows to load data before route,</li>
+                <li> multiple interfaces:
+                    <ul>
+                        <li>canActivate / canActivateChild,</li>
+                        <li>canDeactivate,</li>
+                        <li>resolve,</li>
+                        <li>canLoad,</li>
+                    </ul>
+                </li>
+                <li>declared in router mapping.</li>
+            </ul>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Router's Guard</h3>
+            <h4 class="white">How to start</h4>
+            <ol>
+                <li>create RoleGuard:
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="2,4-6">
+                          @Injectable()
+                          export class RoleGuard implements CanActivate {
+                            constructor(private readonly role: RoleService){}
+                            canActivate() { return this.role.isAdmin(); }
+                          }
+                        </code>
+                    </pre>
+                </li>
+                <li>declare in router:
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="6">
+                          const appRoutes: Routes = [{
+                            path: '/admin',
+                            component: AdminPanelComponent,
+                            canActivate: [ RoleGuard ]
+                          }];
+                        </code>
+                    </pre>
+                </li>
+            </ol>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h3 class="white">Router's Resolver</h3>
+            <ul>
+                <li>special type of guard,</li>
+                <li> allows to fetch the data before the view is rendered, (prevent page blinking, empty forms),</li>
+                <li>returns: observable, promise, object.</li>
+            </ul>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Router's Resolver</h3>
+                <h4 class="white">How to start</h4>
+                <ol>
+                    <li>create a resolver:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="2,4-6">
+                            @Injectable()
+                            export class UserResolver implements Resolve&#x3C;User&#x3E; {
+                                constructor(private authService: AuthService){}
+                                resolve(route: ActivatedRouteSnapshot) {
+                                  return this.authService.getUser(route.params['id']);
+                                }
+                            }
+                            </code>
+                        </pre>
+                    </li>
+                </ol>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Router's Resolver</h3>
+                <h4 class="white">How to start</h4>
+                <ol start="2">
+                    <li>declare the resolver in the router:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="5">
+                            const appRoutes: Routes = [{
+                              path: '/admin',
+                              component: AdminPanelComponent,
+                              resolve: { user: UserResolver}
+                            }];
+                            </code>
+                        </pre>
+                    </li>
+                    <li>retrieve data from the router:
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers="3-7">
+                            @Component({...})
+                            export class UserComponent {
+                              constructor(activatedRoute: ActivatedRoute){
+                                const user = this.activatedRoute.snapshot.data['user'];
+                                const user$ = this.activatedRoute.data
+                                  .pipe(map((data) => data['user']));
+                              }
+                            }
+                            </code>
+                        </pre>
+                    </li>
+                </ol>
+            </section>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>package.json & scaffolding</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content=" "/>
+    <meta name="description" content="package.json & scaffolding"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+    <link rel="icon" href="../common/img/favicon.ico"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/reveal.css"/>
+    <link rel="stylesheet" href="../reveal.js-5.1.0/dist/theme/black.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js-5.1.0/plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal white">
+    <div class="slides">
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_2_SVG/Fixed_Shape_2_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">BASICS</h2>
+            <p class="credits">by twawrzyn</p>
+        </section>
+        <section
+                data-transition="slide"
+                data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+        >
+            <h2 class="white">Tools</h2>
+            <ul class="no-bullet">
+                <li>
+                    <h3 class="white">IDE</h3>
+                    <ul>
+                        <li> Visual Studio Code
+                            <ul>
+                                <li><a href="https://code.visualstudio.com/"> -- Download -- </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="white">Nodejs</h3>
+                    <ul>
+                        <li> Company Portal -> Pre-Approved Catalog -> NVM </li>
+                        <li>
+                            <pre data-id="code-animation">
+                                <code spellcheck="false" class="language-bash hljs" data-trim contenteditable data-line-numbers>
+                                nvm install 18.19.1
+                                nvm use 18.19.1
+                                </code>
+                            </pre>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="white">Angular.CLI</h3>
+                    <pre data-id="code-animation">
+                        <code spellcheck="false" class="language-bash hljs" data-trim contenteditable data-line-numbers>
+                        npm install -g @angular/cli
+                        </code>
+                    </pre>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Angular.CLI</h2>
+                <ul class="no-bullet">
+                    <li>
+                        <h3 class="white">dedicated console for angular</h3>
+                        <ul>
+                            <li>generating services, components, modules</li>
+                            <li>updating angular to a new version</li>
+                            <li>adding new libraries</li>
+                        </ul>
+                        <a href="https://angular.io/cli"> -- More -- </a>
+                    </li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Angular.CLI</h2>
+                <ul>
+                    <li>
+                        generate a new application
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                            ng new my-app
+                            </code>
+                        </pre>
+                    </li>
+                    <li>
+                        start or build the application e.g. component
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                            ng serve
+                            ng build
+                            </code>
+                        </pre>
+                    </li>
+                    <li>
+                        create a new structural element
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                            ng generate {type} {name}
+                            </code>
+                        </pre>
+                    </li>
+                    <li>
+                        run tests or check for lint violations
+                        <pre data-id="code-animation">
+                            <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                            ng test
+                            ng lint
+                            ng lint --fix
+                            </code>
+                        </pre>
+                    </li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h2 class="white">Bootstrapping</h2>
+                <ul>
+                    <li>loading and running applications,</li>
+                    <li>provides control over the moment of launching the application,</li>
+                    <li>allows to perform actions after launching the application,</li>
+                    <li>allows to react when an error occurs during application startup.</li>
+                </ul>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Bootstrapping</h3>
+                <h4 class="white">main.ts</h4>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-typescript hljs" data-trim contenteditable data-line-numbers>
+                    if (environment.production) {
+                        enableProdMode();
+                    }
+
+                    platformBrowserDynamic()
+                        .bootstrapModule(AppModule)
+                        .then(()=> console.log('App started!'))
+                        .catch((err) => console.error(err));
+                    </code>
+                </pre>
+            </section>
+            <section
+                    data-transition="slide"
+                    data-background-image="../common/img/shapes/Fixed_Shape_3_SVG/Fixed_Shape_3_CapgeminiBlue_RGB.svg"
+            >
+                <h3 class="white">Bootstrapping</h3>
+                <h4 class="white">index.html</h4>
+                <pre data-id="code-animation">
+                    <code spellcheck="false" class="language-html hljs" data-trim contenteditable data-line-numbers>
+                    &#x3C;!DOCTYPE html&#x3E;
+                    &#x3C;html&#x3E;
+                      &#x3C;head&#x3E;
+                          &#x3C;meta charset="utf-8"&#x3E;
+                          &#x3C;title&#x3E;Angular School 3&#x3C;/title&#x3E;
+                          &#x3C;base href="/"&#x3E;
+                          &#x3C;meta name="viewport"
+                            content="width=device-width, initial-scale=1"&#x3E;
+                      &#x3C;/head&#x3E;
+                      &#x3C;body&#x3E;
+                          <app-root>Loading...</app-root>
+                      &#x3C;/body&#x3E;
+                    &#x3C;/html&#x3E;
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <h2>
+                <a href="../index.html#/1/0/2">Main page</a>
+            </h2>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js-5.1.0/dist/reveal.js"></script>
+<script src="../reveal.js-5.1.0/plugin/zoom/zoom.js"></script>
+<script src="../reveal.js-5.1.0/plugin/notes/notes.js"></script>
+<script src="../reveal.js-5.1.0/plugin/search/search.js"></script>
+<script src="../reveal.js-5.1.0/plugin/markdown/markdown.js"></script>
+<script src="../reveal.js-5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        view: 'scroll',
+        history: true,
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [
+            RevealZoom,
+            RevealSearch,
+            RevealMarkdown,
+            RevealHighlight,
+        ],
+    });
+</script>
+</body>
+</html>
